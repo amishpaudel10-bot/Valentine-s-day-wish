@@ -1,100 +1,93 @@
-/* General Body */
 body {
     margin: 0;
     padding: 0;
-    font-family: 'Segoe UI', sans-serif;
-    background: linear-gradient(to bottom, #ff4d4d, #ff1a1a);
-    overflow-x: hidden;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(to bottom, #ff4d4d, #b30000);
     color: white;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-x: hidden;
 }
 
-/* Flower popup animation */
+/* Falling Flowers */
 .flower {
-    position: absolute;
+    position: fixed;
+    top: -50px;
     width: 30px;
     height: 30px;
-    background: url('images/flower.png') no-repeat center center;
+    background: url('https://img.icons8.com/emoji/48/000000/cherry-blossom.png') no-repeat center center;
     background-size: contain;
-    animation: pop 5s linear infinite;
+    z-index: 1;
+    animation: fall 5s linear infinite;
 }
 
-@keyframes pop {
-    0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-    100% { transform: translateY(-1000px) rotate(360deg); opacity: 0; }
+@keyframes fall {
+    to { transform: translateY(110vh) rotate(360deg); }
 }
 
 /* Welcome Screen */
 #welcomeScreen {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
-#welcomeScreen h1 {
-    font-size: 36px;
-    margin-bottom: 30px;
-}
-
-/* Open Valentine Button */
 .open-btn {
-    background: red;
+    background: #ff0000;
+    color: white;
     border: none;
     padding: 20px 40px;
     font-size: 24px;
-    border-radius: 50%;
+    border-radius: 50px;
     cursor: pointer;
     box-shadow: 0 0 20px pink;
     transition: 0.3s;
 }
 
-.open-btn:hover {
-    transform: scale(1.1);
-    box-shadow: 0 0 40px pink;
-}
+.open-btn:hover { transform: scale(1.1); }
 
-/* Photo slideshow */
-.photo-container {
-    display: none;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 50px;
+/* Main Content Layout */
+#mainContent {
+    width: 100%;
+    max-width: 600px;
+    padding: 40px 20px;
+    text-align: center;
 }
 
 .photo-container img {
-    width: 450px;  /* medium size */
-    height: 350px;
-    object-fit: cover;
+    width: 100%;
+    max-width: 450px;
+    height: auto;
     border-radius: 20px;
-    box-shadow: 0 0 30px #ff9999;
-    margin-bottom: 20px;
+    box-shadow: 0 0 30px rgba(0,0,0,0.3);
 }
 
-.controls button {
-    background: pink;
-    border: none;
-    padding: 10px 20px;
-    margin: 0 10px;
-    font-size: 20px;
+.controls { margin: 20px 0; }
+
+/* The Wishes Section (Filling the Blank Space) */
+.personal-note {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 30px;
+    border-radius: 20px;
+    font-size: 1.4rem;
+    line-height: 1.6;
+    margin: 30px 0;
+    border: 2px dashed rgba(255,255,255,0.5);
+}
+
+.wish-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.wish-card {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 15px;
     border-radius: 10px;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-.controls button:hover {
-    background: #ff6666;
-}
-
-/* Wishes */
-.wishes {
-    display: none;
-    text-align: center;
-    font-size: 26px;
-    margin-top: 40px;
-}
-
-/* Heart cursor */
-body {
-    cursor: url('images/heart-cursor.png'), auto;
+    font-size: 0.9rem;
 }
