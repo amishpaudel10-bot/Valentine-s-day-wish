@@ -1,4 +1,3 @@
-
 // Flower popups
 const flowersContainer = document.getElementById('flowers');
 for(let i=0; i<30; i++){
@@ -9,38 +8,36 @@ for(let i=0; i<30; i++){
     flowersContainer.appendChild(flower);
 }
 
-// Open Valentine button
+// Open Valentine Button
 const openBtn = document.getElementById('openValentine');
-const photoBook = document.getElementById('photoBook');
+const welcomeScreen = document.getElementById('welcomeScreen');
+const photoContainer = document.getElementById('photoContainer');
 const wishes = document.getElementById('wishes');
 const bgMusic = document.getElementById('bgMusic');
 
 openBtn.addEventListener('click', () => {
-    openBtn.style.display = 'none';
-    photoBook.style.opacity = 1;
-    wishes.style.opacity = 1;
+    welcomeScreen.style.display = 'none';
+    photoContainer.style.display = 'flex';
+    wishes.style.display = 'block';
     bgMusic.play();
-    startPhotoBook();
 });
 
-// Photo book images
-const amishPhotos = [
-    'https://i.ibb.co/4N8F5p7/amish1.jpg',
-    'https://i.ibb.co/2F1w1kR/amish2.jpg',
-    'https://i.ibb.co/4N8F5p7/amish3.jpg'
+// Photo Slideshow
+const photos = [
+    'images/naima1.jpg',
+    'images/naima2.jpg',
+    'images/naima3.jpg'
 ];
 
-const naimaPhotos = [
-    'https://i.ibb.co/z6bJZzN/naima1.jpg',
-    'https://i.ibb.co/0yXYN2m/naima2.jpg',
-    'https://i.ibb.co/z6bJZzN/naima3.jpg'
-];
+let currentIndex = 0;
+const valentinePhoto = document.getElementById('valentinePhoto');
 
-let index = 0;
-function startPhotoBook() {
-    setInterval(() => {
-        index = (index + 1) % amishPhotos.length;
-        document.getElementById('amishPhoto').src = amishPhotos[index];
-        document.getElementById('naimaPhoto').src = naimaPhotos[index];
-    }, 3000);
-}
+document.getElementById('prevBtn').addEventListener('click', () => {
+    currentIndex = (currentIndex - 1 + photos.length) % photos.length;
+    valentinePhoto.src = photos[currentIndex];
+});
+
+document.getElementById('nextBtn').addEventListener('click', () => {
+    currentIndex = (currentIndex + 1) % photos.length;
+    valentinePhoto.src = photos[currentIndex];
+});
