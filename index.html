@@ -1,41 +1,47 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Happy Valentine Naima ❤️</title>
-<link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Valentine Naima ❤️</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<!-- Background music -->
-<audio id="bgMusic" src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" autoplay loop></audio>
+    <audio id="bgMusic" src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" loop></audio>
 
-<!-- Flower animation -->
-<div id="flowers"></div>
+    <div id="flowers"></div>
 
-<!-- Welcome / Open Valentine button -->
-<div id="welcomeScreen">
-    <h1>Happy Valentine, Naima! ❤️</h1>
-    <button class="open-btn" id="openValentine">Open Valentine</button>
-</div>
-
-<!-- Photo slideshow -->
-<div class="photo-container" id="photoContainer">
-    <img id="valentinePhoto" src="images/naima1.jpg" alt="Naima">
-    <div class="controls">
-        <button id="prevBtn">◀</button>
-        <button id="nextBtn">▶</button>
+    <div id="welcomeScreen">
+        <h1>Happy Valentine, Naima! ❤️</h1>
+        <button class="open-btn" id="openValentine">Open Valentine</button>
     </div>
-</div>
 
-<!-- Wishes section -->
-<div class="wishes" id="wishes">
-    <p>Naima, I’m so thankful to have you in my life ❤️</p>
-    <p>You make every day brighter and more special 🌹</p>
-    <p>Happy Valentine’s Day! 🎁💖</p>
-</div>
+    <div id="mainContent" style="display: none;">
+        
+        <div class="photo-container">
+            <img id="valentinePhoto" src="images/naima1.jpg" alt="Naima">
+            <div class="controls">
+                <button id="prevBtn">◀</button>
+                <button id="nextBtn">▶</button>
+            </div>
+        </div>
 
-<script src="script.js"></script>
+        <div class="wishes">
+            <div class="personal-note">
+                <p>"Naima, you are the rhythm in my heart and the spark in my every day. Thank you for making my world so much more beautiful just by being in it. I'm so lucky to have you. Happy Valentine's Day! 🌹✨"</p>
+            </div>
+
+            <div class="wish-grid">
+                <div class="wish-card">✨ You're my favorite person.</div>
+                <div class="wish-card">🌹 To many more memories.</div>
+                <div class="wish-card">🌙 Love you to the moon and back.</div>
+                <div class="wish-card">💫 Every moment is a gift.</div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
 </body>
 </html>
