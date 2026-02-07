@@ -1,3 +1,4 @@
+/* General Body */
 body {
     margin: 0;
     padding: 0;
@@ -9,6 +10,37 @@ body {
     min-height: 100vh;
     overflow-x: hidden;
     position: relative;
+}
+
+/* Open Screen */
+.open-screen {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #ffe6f0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+}
+.open-screen h1 {
+    font-size: 3em;
+    color: #e91e63;
+    margin-bottom: 30px;
+}
+.open-screen button {
+    padding: 15px 30px;
+    font-size: 1.5em;
+    background-color: #e91e63;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+.open-screen button:hover {
+    transform: scale(1.1);
+    transition: 0.3s;
 }
 
 /* Decorations */
@@ -48,7 +80,7 @@ body {
     50% { transform: translateY(-15px); }
 }
 
-/* Container and headings */
+/* Container and Headings */
 .container {
     text-align: center;
     max-width: 800px;
@@ -57,6 +89,7 @@ body {
     background: rgba(255,255,255,0.85);
     box-shadow: 0 10px 25px rgba(0,0,0,0.2);
     position: relative;
+    display: none; /* hidden until open button clicked */
 }
 
 h1 {
@@ -65,7 +98,7 @@ h1 {
     margin-bottom: 20px;
 }
 
-/* Book pages */
+/* Book Pages */
 .book {
     position: relative;
     width: 100%;
@@ -95,7 +128,7 @@ h1 {
     border-radius: 15px;
 }
 
-/* Navigation buttons */
+/* Navigation Buttons */
 .navigation {
     margin-top: 20px;
 }
