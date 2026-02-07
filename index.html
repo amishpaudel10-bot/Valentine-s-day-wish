@@ -7,22 +7,29 @@
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Background decorations -->
-    <div class="flowers-tree">
-        <div class="flower"></div>
-        <div class="flower"></div>
-        <div class="flower"></div>
-    </div>
-    <div class="floating-gifts">
-        <div class="gift">🎁</div>
-        <div class="gift">🌹</div>
-        <div class="gift">💝</div>
+    <!-- Initial Open Button Screen -->
+    <div class="open-screen" id="openScreen">
+        <h1>💖 Happy Valentine 💖</h1>
+        <button id="openBtn">Open Valentine</button>
     </div>
 
-    <div class="container">
+    <!-- Main Valentine Container -->
+    <div class="container" id="mainContainer">
+        <!-- Decorations -->
+        <div class="flowers-tree">
+            <div class="flower"></div>
+            <div class="flower"></div>
+            <div class="flower"></div>
+        </div>
+        <div class="floating-gifts">
+            <div class="gift">🎁</div>
+            <div class="gift">🌹</div>
+            <div class="gift">💝</div>
+        </div>
+
         <h1>Happy Valentine, Naima! ❤️</h1>
 
-        <!-- Book pages -->
+        <!-- Book Pages -->
         <div class="book">
             <div class="page active">
                 <p>Naima, you are the rhythm in my heart and the spark in my every day. Thank you for making my world so much more beautiful just by being in it. I'm so lucky to have you. Happy Valentine's Day! ✨</p>
@@ -38,17 +45,16 @@
             </div>
         </div>
 
-        <!-- Navigation buttons -->
+        <!-- Navigation Buttons -->
         <div class="navigation">
             <button id="prev">⏪ Previous</button>
             <button id="next">Next ⏩</button>
         </div>
     </div>
 
-    <!-- Background music -->
-    <audio id="valentine-music" autoplay loop>
-        <source src="music.mp3" type="audio/mpeg">
-        Your browser does not support the audio element.
+    <!-- Background Music -->
+    <audio id="valentine-music" loop>
+        <source src="https://raw.githubusercontent.com/amishpaudel10-bot/Valentine-s-day-wish/main/music.mp3" type="audio/mpeg">
     </audio>
 
 <script src="script.js"></script>
