@@ -1,62 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Happy Valentine, Naima! ❤️</title>
-<link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Valentine Naima ❤️</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Initial Open Button Screen -->
-    <div class="open-screen" id="openScreen">
-        <h1>💖 Happy Valentine 💖</h1>
-        <button id="openBtn">Open Valentine</button>
-    </div>
 
-    <!-- Main Valentine Container -->
-    <div class="container" id="mainContainer">
-        <!-- Decorations -->
-        <div class="flowers-tree">
-            <div class="flower"></div>
-            <div class="flower"></div>
-            <div class="flower"></div>
-        </div>
-        <div class="floating-gifts">
-            <div class="gift">🎁</div>
-            <div class="gift">🌹</div>
-            <div class="gift">💝</div>
-        </div>
+    <audio id="bgMusic" src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" loop></audio>
+    <div id="flowers"></div>
 
+    <div id="welcomeScreen">
         <h1>Happy Valentine, Naima! ❤️</h1>
+        <button class="open-btn" id="openValentine">Open Valentine</button>
+    </div>
 
-        <!-- Book Pages -->
-        <div class="book">
-            <div class="page active">
-                <p>Naima, you are the rhythm in my heart and the spark in my every day. Thank you for making my world so much more beautiful just by being in it. I'm so lucky to have you. Happy Valentine's Day! ✨</p>
-                <img src="naima1.jpg" alt="Naima Photo 1">
-            </div>
-            <div class="page">
-                <p>Every moment with you feels like a dream, Naima. Your smile lights up even my darkest days, and your laughter is the sweetest melody I could ever hear. My heart beats only for you. 💖</p>
-                <img src="naima2.jpg" alt="Naima Photo 2">
-            </div>
-            <div class="page">
-                <p>Naima, your love is my greatest treasure. With you, life is a magical journey, full of flowers, gifts, and endless happiness. I promise to always cherish you and make every day feel like Valentine's Day. 🌹🎁</p>
-                <img src="naima3.jpg" alt="Naima Photo 3">
+    <div id="mainContent" style="display: none;">
+        
+        <div class="photo-container">
+            <img id="valentinePhoto" src="images/naima1.jpg" alt="Naima">
+            <div class="controls">
+                <button id="prevBtn">◀</button>
+                <button id="nextBtn">▶</button>
             </div>
         </div>
 
-        <!-- Navigation Buttons -->
-        <div class="navigation">
-            <button id="prev">⏪ Previous</button>
-            <button id="next">Next ⏩</button>
+        <div class="wishes">
+            <div class="personal-note">
+                <p>"Naima, you are the rhythm in my heart and the spark in my every day. Thank you for making my world so much more beautiful just by being in it. I'm so lucky to have you. Happy Valentine's Day! 🌹✨"</p>
+            </div>
+
+            <div class="story-section">
+                <h3>To My Dearest Naima,</h3>
+                <div id="typewriter-text"></div>
+            </div>
+
+            <div class="wish-grid">
+                <div class="wish-card">✨ You're my favorite person.</div>
+                <div class="wish-card">🌹 To many more memories.</div>
+                <div class="wish-card">🌙 Love you to the moon and back.</div>
+                <div class="wish-card">💫 Every moment is a gift.</div>
+            </div>
         </div>
     </div>
 
-    <!-- Background Music -->
-    <audio id="valentine-music" loop>
-        <source src="https://raw.githubusercontent.com/amishpaudel10-bot/Valentine-s-day-wish/main/music.mp3" type="audio/mpeg">
-    </audio>
-
-<script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
