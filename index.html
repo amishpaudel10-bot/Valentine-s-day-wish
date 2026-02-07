@@ -3,41 +3,30 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Valentine's Day for Naima & Amish</title>
+<title>Naima ❤️ Amish Valentine</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div class="flower-popup"></div>
-
-<h1>Happy Valentine's Day, Naima & Amish! ❤️</h1>
-<button id="valentineBtn">Open Valentine's Surprise</button>
-
-<!-- Couple photos slider -->
-<div class="slider" id="slider" style="display:none;">
-    <div class="slides" id="slides">
-        <img src="https://i.ibb.co/ck1SGFJ/couple1.jpg" alt="Couple 1">
-        <img src="https://i.ibb.co/p4nKZrS/couple2.jpg" alt="Couple 2">
-        <img src="https://i.ibb.co/8K5h2Vg/couple3.jpg" alt="Couple 3">
-    </div>
-</div>
-
-<!-- Best wishes -->
-<div class="wishes" id="wishes" style="display:none;">
-    💕 May our love bloom like these flowers every day! 💕<br>
-    🌹 Forever together, Naima & Amish 🌹
-</div>
-
-<!-- Love meter -->
-<div class="love-meter" id="loveMeter" style="display:none;">
-    <div class="love-meter-fill" id="loveMeterFill"></div>
-</div>
-
-<!-- Love quotes -->
-<div class="love-quote" id="loveQuote" style="display:none;"></div>
-
 <!-- Background music -->
-<audio id="bgMusic" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" autoplay loop></audio>
+<audio id="bgMusic" src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" autoplay loop></audio>
+
+<!-- Flower animation container -->
+<div id="flowers"></div>
+
+<!-- Open Valentine button -->
+<button class="open-btn" id="openValentine">Open Valentine ❤️</button>
+
+<!-- Photo book -->
+<div class="photo-book" id="photoBook">
+    <img id="amishPhoto" src="https://i.ibb.co/4N8F5p7/amish1.jpg" alt="Amish">
+    <img id="naimaPhoto" src="https://i.ibb.co/z6bJZzN/naima1.jpg" alt="Naima">
+</div>
+
+<!-- Wishes -->
+<div class="wishes" id="wishes">
+    Happy Valentine’s Day, Naima & Amish! ❤️
+</div>
 
 <script src="script.js"></script>
 </body>
