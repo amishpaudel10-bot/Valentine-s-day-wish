@@ -1,4 +1,18 @@
+// Open Valentine Button
+const openBtn = document.getElementById('openBtn');
+const openScreen = document.getElementById('openScreen');
+const mainContainer = document.getElementById('mainContainer');
+const music = document.getElementById('valentine-music');
 
+openBtn.addEventListener('click', () => {
+    openScreen.style.display = 'none';
+    mainContainer.style.display = 'block';
+    music.play().catch(() => {
+        console.log("Autoplay blocked, click to play music.");
+    });
+});
+
+// Page Swipe Functionality
 let currentPage = 0;
 const pages = document.querySelectorAll('.page');
 const prevBtn = document.getElementById('prev');
@@ -21,12 +35,10 @@ nextBtn.addEventListener('click', () => {
     showPage(currentPage);
 });
 
-// Music control: click anywhere to pause/play
-const music = document.getElementById('valentine-music');
-document.body.addEventListener('click', () => {
-    if (music.paused) {
-        music.play();
-    } else {
-        music.pause();
+// Optional: Click anywhere to play/pause music
+document.body.addEventListener('click', (e) => {
+    if(e.target.id !== 'openBtn') {
+        if (music.paused) music.play();
+        else music.pause();
     }
 });
