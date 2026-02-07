@@ -8,6 +8,31 @@ function type() {
         setTimeout(type, 50);
     }
 }
+function sendLoveMessage() {
+    // Get the text from your input/textarea
+    const userMsg = document.getElementById('naimaMsg').value;
+
+    // Check if it's empty to prevent blank messages
+    if (!userMsg.trim()) {
+        alert("Please write something first! ❤️");
+        return;
+    }
+
+    // Mobile Vibration (Haptic feedback)
+    if (navigator.vibrate) {
+        navigator.vibrate([100, 50, 100]);
+    }
+
+    // Your WhatsApp Number
+    const myNumber = "9767757067";
+
+    // Create the encoded URL
+    const finalUrl = `https://wa.me/${myNumber}?text=${encodeURIComponent("💌 Naima: " + userMsg)}`;
+
+    // Open WhatsApp in a new tab/app
+    window.open(finalUrl, '_blank');
+}
+
 
 document.getElementById('openValentine').addEventListener('click', () => {
     document.getElementById('welcomeScreen').style.display = 'none';
