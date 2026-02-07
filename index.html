@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Naima ❤️ Amish Valentine</title>
+<title>Happy Valentine Naima ❤️</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -11,21 +11,29 @@
 <!-- Background music -->
 <audio id="bgMusic" src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" autoplay loop></audio>
 
-<!-- Flower animation container -->
+<!-- Flower animation -->
 <div id="flowers"></div>
 
-<!-- Open Valentine button -->
-<button class="open-btn" id="openValentine">Open Valentine ❤️</button>
-
-<!-- Photo book -->
-<div class="photo-book" id="photoBook">
-    <img id="amishPhoto" src="https://i.ibb.co/4N8F5p7/amish1.jpg" alt="Amish">
-    <img id="naimaPhoto" src="https://i.ibb.co/z6bJZzN/naima1.jpg" alt="Naima">
+<!-- Welcome / Open Valentine button -->
+<div id="welcomeScreen">
+    <h1>Happy Valentine, Naima! ❤️</h1>
+    <button class="open-btn" id="openValentine">Open Valentine</button>
 </div>
 
-<!-- Wishes -->
+<!-- Photo slideshow -->
+<div class="photo-container" id="photoContainer">
+    <img id="valentinePhoto" src="images/naima1.jpg" alt="Naima">
+    <div class="controls">
+        <button id="prevBtn">◀</button>
+        <button id="nextBtn">▶</button>
+    </div>
+</div>
+
+<!-- Wishes section -->
 <div class="wishes" id="wishes">
-    Happy Valentine’s Day, Naima & Amish! ❤️
+    <p>Naima, I’m so thankful to have you in my life ❤️</p>
+    <p>You make every day brighter and more special 🌹</p>
+    <p>Happy Valentine’s Day! 🎁💖</p>
 </div>
 
 <script src="script.js"></script>
