@@ -1,0 +1,351 @@
+@extends($activeTemplate . 'layouts.awais')
+@section('content')
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    <title>For My Queen Naima ❤️</title>
+    
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-pink: #ff4d6d;
+            --secondary-pink: #ffb3c1;
+            --dark-pink: #c9184a;
+            --bg-color: #fff0f3;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            color: #444;
+        }
+
+        /* PIN SCREEN */
+        #pin-screen {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(45deg, #ff4d6d, #ffb3c1);
+            display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
+            z-index: 9999; transition: 0.5s;
+        }
+        .pin-box {
+            background: white; padding: 30px; border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1); text-align: center;
+        }
+        .pin-input {
+            width: 150px; padding: 10px; font-size: 24px;
+            border: 2px solid var(--primary-pink); border-radius: 10px;
+            text-align: center; outline: none; letter-spacing: 5px;
+        }
+
+        /* NAVIGATION MENU */
+        .menu-btn {
+            position: fixed; top: 20px; right: 20px;
+            z-index: 1000; font-size: 25px; color: var(--dark-pink);
+            cursor: pointer; background: white; padding: 10px;
+            border-radius: 50%; box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .side-menu {
+            position: fixed; top: 0; right: -250px; width: 250px;
+            height: 100%; background: white; z-index: 1001;
+            transition: 0.4s; padding-top: 60px; box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+        }
+        .side-menu a {
+            display: block; padding: 15px 25px; text-decoration: none;
+            color: var(--dark-pink); font-weight: 600; border-bottom: 1px solid #eee;
+        }
+
+        /* DASHBOARD */
+        .container { padding: 20px; max-width: 600px; margin: auto; }
+        .header-card {
+            background: white; border-radius: 20px; padding: 20px;
+            text-align: center; margin-bottom: 20px; border-bottom: 5px solid var(--primary-pink);
+        }
+        .stat-grid {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 15px;
+        }
+        .stat-card {
+            background: white; padding: 15px; border-radius: 15px; text-align: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+        .stat-card i { font-size: 24px; color: var(--primary-pink); margin-bottom: 10px; }
+
+        /* GALLERY */
+        .gallery-title { font-family: 'Dancing Script', cursive; font-size: 2rem; color: var(--dark-pink); margin: 30px 0 15px; }
+        .photo-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+        .photo-grid img { width: 100%; border-radius: 15px; border: 3px solid white; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+
+        /* APOLOGY SECTION */
+        .apology-box {
+            background: #fff; border-radius: 20px; padding: 20px; margin-top: 30px;
+            text-align: center; border: 2px dashed var(--primary-pink);
+        }
+        .cat-img { width: 150px; }
+
+        /* SPIN WHEEL */
+        .wheel-container { position: relative; width: 250px; height: 250px; margin: 20px auto; }
+        #wheel { width: 100%; height: 100%; border-radius: 50%; border: 5px solid var(--dark-pink); transition: transform 3s cubic-bezier(0.17, 0.67, 0.12, 0.99); }
+        .spin-btn { 
+            background: var(--dark-pink); color: white; border: none; 
+            padding: 10px 25px; border-radius: 25px; cursor: pointer; margin-top: 10px;
+        }
+
+        /* INSTRUMENTS */
+        .instrument-box { display: flex; justify-content: space-around; margin: 30px 0; }
+        .key { padding: 20px; background: white; border-radius: 10px; cursor: pointer; box-shadow: 0 4px 0 #ddd; transition: 0.1s; }
+        .key:active { transform: translateY(4px); box-shadow: none; }
+
+        /* HEART CATCHER */
+        #game-canvas { background: #ffe5ec; border-radius: 20px; width: 100%; height: 300px; display: block; }
+
+        /* CONTACTS */
+        .whatsapp-btns { display: flex; flex-direction: column; gap: 10px; margin-top: 20px; }
+        .wa-btn {
+            background: #25d366; color: white; text-decoration: none;
+            padding: 12px; border-radius: 10px; text-align: center; font-weight: bold;
+        }
+
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+
+    <!-- PIN Screen -->
+    <div id="pin-screen">
+        <div class="pin-box">
+            <h2 style="font-family: 'Dancing Script'; color: var(--primary-pink)">Enter Secret Code</h2>
+            <input type="password" id="pinInput" class="pin-input" maxlength="4" placeholder="****">
+            <p id="pinError" style="color: red; display: none; margin-top: 10px;">Incorrect Pin, My Love!</p>
+            <button onclick="checkPin()" class="spin-btn" style="margin-top: 15px;">Unlock My Heart</button>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <div class="menu-btn" onclick="toggleMenu()"><i class="fas fa-bars"></i></div>
+    <div class="side-menu" id="sideMenu">
+        <a href="#dashboard" onclick="toggleMenu()">Dashboard</a>
+        <a href="#gallery" onclick="toggleMenu()">Gallery</a>
+        <a href="#apology" onclick="toggleMenu()">Apology</a>
+        <a href="#games" onclick="toggleMenu()">Games</a>
+        <a href="#music" onclick="toggleMenu()">Instruments</a>
+        <a href="#contact" onclick="toggleMenu()">Message Amish</a>
+    </div>
+
+    <!-- Main Content -->
+    <div id="main-content" class="container hidden">
+        
+        <!-- Dashboard -->
+        <section id="dashboard">
+            <div class="header-card">
+                <h1 style="font-family: 'Dancing Script';">Hello, Naima ❤️</h1>
+                <p>Welcome to our professional love portal</p>
+            </div>
+            <div class="stat-grid">
+                <div class="stat-card">
+                    <i class="fas fa-heart"></i>
+                    <h4>Love Level</h4>
+                    <p>Infinity%</p>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-calendar-alt"></i>
+                    <h4>Days Together</h4>
+                    <p id="daysCount">365+</p>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-smile-beam"></i>
+                    <h4>Memories</h4>
+                    <p>Unlimited</p>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-cat"></i>
+                    <h4>Amish's Love</h4>
+                    <p>1000/10</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Gallery -->
+        <section id="gallery">
+            <h2 class="gallery-title">Your lovely photos 🥰</h2>
+            <div class="photo-grid">
+                <!-- Replace src with your actual photo URLs -->
+                <img src="https://via.placeholder.com/300?text=Naima+1" alt="Naima 1">
+                <img src="https://via.placeholder.com/300?text=Naima+2" alt="Naima 2">
+                <img src="https://via.placeholder.com/300?text=Naima+3" alt="Naima 3">
+                <img src="https://via.placeholder.com/300?text=Naima+4" alt="Naima 4">
+                <img src="https://via.placeholder.com/300?text=Naima+5" alt="Naima 5">
+            </div>
+        </section>
+
+        <!-- Quotes -->
+        <section id="quotes" style="text-align: center; margin: 40px 0;">
+            <i class="fas fa-quote-left" style="color: var(--secondary-pink)"></i>
+            <h3 id="quote-text" style="font-style: italic;">"In all the world, there is no heart for me like yours."</h3>
+        </section>
+
+        <!-- Apology Section -->
+        <section id="apology">
+            <div class="apology-box">
+                <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJueGZ3bmZ3bmZ3bmZ3bmZ3bmZ3bmZ3JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1z/C9x0nrDQxF8P18qxgI/giphy.gif" class="cat-img" alt="Amish Cat">
+                <h3>Amish is Sorry!</h3>
+                <p>Naima, I'm just a silly cat sometimes. Please forgive me for all my mistakes. I promise to love you more every single day! 🐾</p>
+            </div>
+        </section>
+
+        <!-- Spin Wheel -->
+        <section id="games" style="text-align: center; margin-top: 50px;">
+            <h2 class="gallery-title">Spin Your Luck</h2>
+            <div class="wheel-container">
+                <canvas id="wheelCanvas" width="250" height="250"></canvas>
+            </div>
+            <button class="spin-btn" onclick="spinWheel()">Spin to get Kiss/Hug</button>
+            <h4 id="wheelResult" style="margin-top: 15px; color: var(--dark-pink)"></h4>
+        </section>
+
+        <!-- Music Section -->
+        <section id="music" style="text-align: center;">
+            <h2 class="gallery-title">Play for Me</h2>
+            <div class="instrument-box">
+                <div class="key" onclick="playNote('piano')"><i class="fas fa-keyboard"></i><br>Piano</div>
+                <div class="key" onclick="playNote('drum')"><i class="fas fa-drum"></i><br>Drums</div>
+            </div>
+        </section>
+
+        <!-- Heart Catcher Game -->
+        <section id="heartGame" style="text-align: center;">
+            <h2 class="gallery-title">Catch My Hearts</h2>
+            <p>Score: <span id="gameScore">0</span></p>
+            <canvas id="game-canvas"></canvas>
+            <p style="font-size: 12px;">(Tap to move catcher)</p>
+        </section>
+
+        <!-- WhatsApp Links -->
+        <section id="contact" class="whatsapp-btns">
+            <h2 class="gallery-title" style="text-align: center;">Direct Line</h2>
+            <a href="https://wa.me/918974900636?text=I%20Love%20You%20Amish!" class="wa-btn"><i class="fab fa-whatsapp"></i> Chat with Naima</a>
+            <a href="https://wa.me/9779767757067?text=Hey%20Amish,%20I%20forgive%20you!" class="wa-btn" style="background: #075e54;"><i class="fab fa-whatsapp"></i> Chat with Amish</a>
+        </section>
+
+        <footer style="text-align: center; padding: 40px; color: #aaa;">
+            Made with ❤️ by Amish for Naima
+        </footer>
+    </div>
+
+    <!-- Background Audio (Placeholders) -->
+    <audio id="bgMusic1" loop><source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg"></audio>
+    <audio id="guitarSound"><source src="https://assets.mixkit.co/active_storage/sfx/2324/2324-preview.mp3" type="audio/mpeg"></audio>
+    <audio id="pianoSound"><source src="https://assets.mixkit.co/active_storage/sfx/1932/1932-preview.mp3" type="audio/mpeg"></audio>
+    <audio id="drumSound"><source src="https://assets.mixkit.co/active_storage/sfx/1931/1931-preview.mp3" type="audio/mpeg"></audio>
+
+    <script>
+        // 1. PIN LOGIN LOGIC
+        function checkPin() {
+            const pin = document.getElementById('pinInput').value;
+            if(pin === "0915") {
+                document.getElementById('pin-screen').style.opacity = '0';
+                setTimeout(() => {
+                    document.getElementById('pin-screen').style.display = 'none';
+                    document.getElementById('main-content').classList.remove('hidden');
+                    document.getElementById('bgMusic1').play();
+                }, 500);
+            } else {
+                document.getElementById('pinError').style.display = 'block';
+            }
+        }
+
+        // 2. MENU TOGGLE
+        function toggleMenu() {
+            const menu = document.getElementById('sideMenu');
+            menu.style.right = (menu.style.right === '0px') ? '-250px' : '0px';
+        }
+
+        // 3. SPIN WHEEL LOGIC
+        const options = ["Kiss 💋", "Hug 🤗", "Nothing 😢", "Kiss 💋", "Hug 🤗", "Nothing 😢"];
+        function spinWheel() {
+            const result = options[Math.floor(Math.random() * options.length)];
+            const wheel = document.getElementById('wheelCanvas');
+            const deg = Math.floor(5000 + Math.random() * 5000);
+            wheel.style.transition = 'all 3s ease-out';
+            wheel.style.transform = `rotate(${deg}deg)`;
+            
+            setTimeout(() => {
+                document.getElementById('wheelResult').innerText = "You got: " + result;
+            }, 3000);
+        }
+
+        // 4. INSTRUMENT SOUNDS
+        function playNote(type) {
+            if(type === 'piano') document.getElementById('pianoSound').play();
+            if(type === 'drum') document.getElementById('drumSound').play();
+        }
+
+        // 5. HEART CATCHER GAME
+        const canvas = document.getElementById('game-canvas');
+        const ctx = canvas.getContext('2d');
+        let score = 0;
+        let catcherX = 150;
+        let hearts = [];
+
+        canvas.addEventListener('touchstart', (e) => {
+            const rect = canvas.getBoundingClientRect();
+            catcherX = e.touches[0].clientX - rect.left - 25;
+        });
+
+        function createHeart() {
+            hearts.push({ x: Math.random() * (canvas.width-20), y: 0, size: 20 });
+        }
+
+        function updateGame() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Draw Catcher
+            ctx.fillStyle = '#ff4d6d';
+            ctx.fillRect(catcherX, 270, 60, 20);
+
+            hearts.forEach((h, i) => {
+                h.y += 3;
+                // Draw Heart
+                ctx.font = '20px serif';
+                ctx.fillText('❤️', h.x, h.y);
+
+                // Collision
+                if(h.y > 270 && h.x > catcherX && h.x < catcherX + 60) {
+                    hearts.splice(i, 1);
+                    score++;
+                    document.getElementById('gameScore').innerText = score;
+                    document.getElementById('guitarSound').play();
+                }
+            });
+
+            if(Math.random() < 0.05) createHeart();
+            requestAnimationFrame(updateGame);
+        }
+        updateGame();
+
+        // 6. DRAW SPIN WHEEL CANVAS
+        const canvasW = document.getElementById('wheelCanvas');
+        const ctxW = canvasW.getContext('2d');
+        for(let i=0; i<6; i++){
+            ctxW.beginPath();
+            ctxW.moveTo(125,125);
+            ctxW.arc(125,125, 120, i*Math.PI/3, (i+1)*Math.PI/3);
+            ctxW.fillStyle = i%2==0 ? '#ff4d6d' : '#ffb3c1';
+            ctxW.fill();
+            ctxW.stroke();
+        }
+
+    </script>
+</body>
+</html>
+
+@endsection
