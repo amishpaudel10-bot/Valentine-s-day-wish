@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AMISH ❤️ NAIMA | THE INFINITY PROJECT</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@900&family=Dancing+Script:wght@700&display=swap');
+
+        :root {
+            --primary: #ff0055;
+            --bg: #000000;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: white;
+            font-family: 'Montserrat', sans-serif;
+            overflow-x: hidden;
+            /* Big Text Global Scaling */
+            font-size: 1.5rem; 
+        }
+
+        .mega-text {
+            font-size: clamp(3rem, 15vw, 12rem);
+            line-height: 0.9;
+            text-transform: uppercase;
+            letter-spacing: -5px;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50px;
+            padding: 60px;
+        }
+
+        .big-btn {
+            padding: 30px 60px;
+            font-size: 2rem;
+            border-radius: 100px;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            font-weight: 900;
+        }
+
+        /* Tic Tac Toe Big Grid */
+        .ttt-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .cell {
+            height: 180px;
+            background: rgba(255, 255, 255, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+            cursor: pointer;
+            border-radius: 20px;
+        }
+
+        /* Floating Hearts */
+        .heart {
+            position: fixed;
+            color: var(--primary);
+            pointer-events: none;
+            z-index: 999;
+            animation: floatUp 4s linear forwards;
+        }
+
+        @keyframes floatUp {
+            to { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+        }
+    </style>
+</head>
+<body class="p-4 md:p-20">
+
+    <section class="min-h-screen flex flex-col justify-center mb-40">
+        <h1 class="mega-text animate-pulse">AMISH <span class="text-pink-600">❤️</span> NAIMA</h1>
+        <p class="text-3xl mt-10 text-gray-400">THE BIGGEST LOVE STORY IN THE UNIVERSE.</p>
+        
+        <div class="mt-20">
+            <button onclick="playVoiceNote()" class="big-btn bg-white text-black hover:bg-pink-500 hover:text-white mr-5">
+                <i class="fas fa-play"></i> Play Voice Note
+            </button>
+            <button onclick="toggleMusic()" id="musicBtn" class="big-btn border-4 border-white">
+                <i class="fas fa-music"></i> Start Music
+            </button>
+        </div>
+    </section>
+
+    <section class="mb-40">
+        <div class="glass-card">
+            <h2 class="text-6xl mb-10">Send a Compliment</h2>
+            <input type="text" id="compText" placeholder="Type something sweet..." class="w-full bg-transparent border-b-4 border-white p-5 text-4xl outline-none mb-10">
+            <button onclick="sendWhatsApp()" class="big-btn bg-green-500 w-full">Send to Amish's WhatsApp</button>
+        </div>
+    </section>
+
+    <section class="grid grid-cols-1 md:grid-cols-2 gap-10 mb-40">
+        <div class="glass-card text-center">
+            <div id="templateEmoji" class="text-9xl mb-5">🐼</div>
+            <div id="templateText" class="text-4xl font-bold mb-10">Click below for a surprise...</div>
+            <div class="flex flex-wrap gap-4 justify-center">
+                <button onclick="genTemplate('panda')" class="bg-pink-600 p-6 rounded-2xl">Panda Proposal</button>
+                <button onclick="genTemplate('sorry')" class="bg-purple-600 p-6 rounded-2xl">Cat Sorry</button>
+                <button onclick="genTemplate('cute')" class="bg-blue-600 p-6 rounded-2xl">Cat Cute</button>
+            </div>
+        </div>
+
+        <div class="glass-card">
+            <h2 class="text-5xl mb-10 text-center">Tic Tac Toe</h2>
+            <div class="ttt-grid" id="board">
+                <div class="cell" onclick="makeMove(0)"></div>
+                <div class="cell" onclick="makeMove(1)"></div>
+                <div class="cell" onclick="makeMove(2)"></div>
+                <div class="cell" onclick="makeMove(3)"></div>
+                <div class="cell" onclick="makeMove(4)"></div>
+                <div class="cell" onclick="makeMove(5)"></div>
+                <div class="cell" onclick="makeMove(6)"></div>
+                <div class="cell" onclick="makeMove(7)"></div>
+                <div class="cell" onclick="makeMove(8)"></div>
+            </div>
+            <button onclick="resetBoard()" class="w-full mt-10 text-2xl text-pink-500">Reset Game</button>
+        </div>
+    </section>
+
+    <section class="mb-40">
+        <div class="glass-card text-center">
+            <h2 class="text-7xl mb-10 dancing text-pink-400">Love Letter Generator</h2>
+            <div id="loveLetter" class="text-3xl italic leading-relaxed min-h-[200px] mb-10 p-10 bg-white/5 rounded-3xl">
+                "Click the button to write your heart out..."
+            </div>
+            <button onclick="generateLetter()" class="big-btn bg-white text-black">Generate Letter</button>
+        </div>
+    </section>
+
+    <audio id="bgMusic" loop>
+        <source src="https://www.bensound.com/bensound-music/bensound-love.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="voiceNote">
+        <source src="https://www.soundjay.com/human/check-out-this-voice-1.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        // 1. WhatsApp Integration
+        function sendWhatsApp() {
+            const msg = document.getElementById('compText').value;
+            const url = `https://wa.me/9779767757067?text=${encodeURIComponent("Hey Amish! Here is a compliment: " + msg)}`;
+            window.open(url, '_blank');
+        }
+
+        // 2. Music & Voice Control
+        const music = document.getElementById('bgMusic');
+        const voice = document.getElementById('voiceNote');
+        
+        function toggleMusic() {
+            if (music.paused) {
+                music.play();
+                document.getElementById('musicBtn').innerHTML = '<i class="fas fa-pause"></i> Stop Music';
+            } else {
+                music.pause();
+                document.getElementById('musicBtn').innerHTML = '<i class="fas fa-music"></i> Start Music';
+            }
+        }
+
+        function playVoiceNote() {
+            voice.play();
+            spawnHearts();
+        }
+
+        // 3. Template Generator
+        function genTemplate(type) {
+            const display = document.getElementById('templateText');
+            const emoji = document.getElementById('templateEmoji');
+            
+            if(type === 'panda') {
+                emoji.innerText = "🐼💍";
+                display.innerText = "Naima, will you be the person I spend my whole life eating bamboo with? Marry me?";
+            } else if(type === 'sorry') {
+                emoji.innerText = "😿";
+                display.innerText = "Naima, I'm purr-fectly sorry for every mistake. Please forgive this sad cat!";
+            } else if(type === 'cute') {
+                emoji.innerText = "🥰";
+                display.innerText = "Aww Naima, you are looking so cute today that my heart just melted!";
+            }
+        }
+
+        // 4. Love Letter Generator
+        const letters = [
+            "Dearest Naima, from the moment I saw you, the world stopped spinning. You are my home and my future.",
+            "My Love, you turn me inside out. I promise to be yours until the stars go out and the moon turns to dust.",
+            "Naima, you're the GPS that guided me back to happiness. I love you more than words can ever describe."
+        ];
+
+        function generateLetter() {
+            document.getElementById('loveLetter').innerText = letters[Math.floor(Math.random() * letters.length)];
+            spawnHearts();
+        }
+
+        // 5. Tic Tac Toe Logic
+        let currentPlayer = 'X';
+        let cells = ["","","","","","","","",""];
+        function makeMove(i) {
+            if(cells[i] === "") {
+                cells[i] = currentPlayer;
+                document.getElementsByClassName('cell')[i].innerText = currentPlayer;
+                currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+            }
+        }
+        function resetBoard() {
+            cells = ["","","","","","","","",""];
+            const htmlCells = document.getElementsByClassName('cell');
+            for(let cell of htmlCells) cell.innerText = "";
+        }
+
+        // 6. Effects
+        function spawnHearts() {
+            for(let i=0; i<20; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'heart fas fa-heart';
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.top = '100vh';
+                heart.style.fontSize = Math.random() * 40 + 20 + 'px';
+                document.body.appendChild(heart);
+                setTimeout(() => heart.remove(), 4000);
+            }
+        }
+    </script>
+</body>
+                                                          </html>
+                                                          
