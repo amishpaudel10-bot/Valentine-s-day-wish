@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AMISH ❤️ NAIMA | THE INFINITY PROJECT</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@900&family=Dancing+Script:wght@700&display=swap');
+
+        :root {
+            --primary: #ff0054;
+            --bg-dark: #000000;
+        }
+
+        body {
+            background: var(--bg-dark);
+            color: white;
+            font-family: 'Montserrat', sans-serif;
+            overflow-x: hidden;
+            /* Cursor Trail Effect */
+            cursor: crosshair;
+        }
+
+        /* MASSIVE TEXT SCALING */
+        .ultra-text { font-size: clamp(4rem, 15vw, 12rem); line-height: 0.9; letter-spacing: -5px; }
+        .big-p { font-size: clamp(1.5rem, 4vw, 3rem); font-weight: 300; }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50px;
+        }
+
+        /* Animated Gradient Background */
+        .love-gradient {
+            background: linear-gradient(45deg, #7000ff, #ff0054, #ff5400, #ff0054);
+            background-size: 400% 400%;
+            animation: gradientMove 10s ease infinite;
+        }
+
+        @keyframes gradientMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Heart Rain */
+        .falling-heart {
+            position: fixed;
+            pointer-events: none;
+            z-index: 100;
+            animation: fall linear forwards;
+        }
+
+        @keyframes fall {
+            to { transform: translateY(110vh) rotate(360deg); }
+        }
+
+        /* Hidden Audio Fix */
+        #music-player { display: none; }
+    </style>
+</head>
+<body class="love-gradient">
+
+    <div id="loader" class="fixed inset-0 z-[1000] bg-black flex items-center justify-center">
+        <h1 class="ultra-text animate-pulse">LOADING...</h1>
+    </div>
+
+    <div class="fixed top-10 right-10 z-[500] flex flex-col gap-4">
+        <button onclick="toggleMusic()" class="glass-card p-6 hover:scale-110 transition">
+            <span id="music-icon" class="text-4xl">🎵</span>
+        </button>
+        <button onclick="playVoiceNote()" class="glass-card p-6 hover:scale-110 transition border-pink-500">
+            <span class="text-4xl">🎤 PLAY VOICE NOTE</span>
+        </button>
+    </div>
+
+    <audio id="bg-music" loop>
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="voice-note">
+        <source src="https://www.w3schools.com/html/horse.mp3" type="audio/mpeg">
+    </audio>
+
+    <section class="min-h-screen flex flex-col items-center justify-center p-10 text-center">
+        <h1 class="ultra-text animate__animated animate__fadeInDown">AMISH<br><span class="text-white/20">❤️</span><br>NAIMA</h1>
+        <p class="big-p mt-10 max-w-5xl">WE ARE BEYOND INFINITY. EVERY SECOND IS A NEW CHAPTER.</p>
+    </section>
+
+    <section class="py-40 px-10">
+        <div class="max-w-7xl mx-auto glass-card p-20 text-center">
+            <h2 class="text-6xl font-black mb-10">LOVE LETTER GENERATOR</h2>
+            <div id="letter-display" class="big-p italic text-pink-200 mb-10 min-h-[200px]">
+                Click the button below to generate a unique soul-bound letter for Naima...
+            </div>
+            <button onclick="generateLetter()" class="text-4xl bg-white text-black px-12 py-6 rounded-full font-black hover:bg-pink-500 hover:text-white transition">GENERATE MAGIC ✨</button>
+        </div>
+    </section>
+
+    <section class="py-40 px-10 bg-black/40">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="ultra-text text-6xl mb-10">THE CATCH-HEART GAME</h2>
+            <div id="game-area" class="relative w-full h-[500px] glass-card overflow-hidden cursor-crosshair">
+                <div id="player-score" class="absolute top-5 left-5 text-4xl font-bold">SCORE: 0</div>
+                <div id="game-hint" class="absolute inset-0 flex items-center justify-center text-2xl opacity-50">CLICK THE FLOATING HEARTS!</div>
+            </div>
+            <button onclick="startGame()" class="mt-10 text-3xl border-4 border-white px-10 py-4 rounded-full">START GAME</button>
+        </div>
+    </section>
+
+    <section class="py-40 px-10">
+        <h2 class="ultra-text text-center mb-20">OUR PROMISES</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+            <div class="glass-card p-20 text-4xl font-bold">01. NEVER GIVE UP</div>
+            <div class="glass-card p-20 text-4xl font-bold">02. INFINITE SUPPORT</div>
+            <div class="glass-card p-20 text-4xl font-bold">03. TRAVEL THE GALAXY</div>
+            <div class="glass-card p-20 text-4xl font-bold">04. ALWAYS CHOOSE YOU</div>
+        </div>
+    </section>
+
+    <footer class="p-40 text-center">
+        <div class="ultra-text opacity-10">A+N</div>
+        <p class="text-3xl text-gray-500 mt-10">PROJECT INFINITY | 20,000+ SUB-ROUTINES ACTIVE</p>
+    </footer>
+
+    <script>
+        // 1. LOADER FIX
+        window.onload = () => {
+            gsap.to("#loader", { duration: 1.5, y: "-100%", ease: "expo.inOut" });
+            startHeartRain();
+        };
+
+        // 2. WORKING MUSIC ENGINE
+        const music = document.getElementById('bg-music');
+        const voice = document.getElementById('voice-note');
+        let isPlaying = false;
+
+        function toggleMusic() {
+            if (!isPlaying) {
+                music.play();
+                document.getElementById('music-icon').innerText = "⏸️";
+            } else {
+                music.pause();
+                document.getElementById('music-icon').innerText = "🎵";
+            }
+            isPlaying = !isPlaying;
+        }
+
+        function playVoiceNote() {
+            music.volume = 0.2; // Lower music for voice
+            voice.play();
+            voice.onended = () => { music.volume = 1.0; };
+        }
+
+        // 3. RANDOM LOVE LETTER GENERATOR
+        const phrases = [
+            "My soul is tied to your smile.",
+            "In every universe, I will find you.",
+            "Naima, you are the gravity that holds my world together.",
+            "Amish loves you more than words can ever render.",
+            "You are the code that makes my life functional.",
+            "I would traverse 5,000 lines of code just to see your face."
+        ];
+
+        function generateLetter() {
+            const display = document.getElementById('letter-display');
+            const randomMsg = phrases[Math.floor(Math.random() * phrases.length)];
+            display.classList.add('animate__animated', 'animate__fadeIn');
+            display.innerText = randomMsg;
+            setTimeout(() => display.classList.remove('animate__fadeIn'), 1000);
+        }
+
+        // 4. THE GAME ENGINE
+        let score = 0;
+        function startGame() {
+            score = 0;
+            document.getElementById('player-score').innerText = "SCORE: 0";
+            document.getElementById('game-hint').style.display = "none";
+            
+            const gameInterval = setInterval(() => {
+                const heart = document.createElement('div');
+                heart.innerHTML = "❤️";
+                heart.className = "absolute text-5xl cursor-pointer transition-all";
+                heart.style.left = Math.random() * 90 + "%";
+                heart.style.top = Math.random() * 80 + "%";
+                
+                heart.onclick = () => {
+                    score++;
+                    document.getElementById('player-score').innerText = "SCORE: " + score;
+                    heart.remove();
+                };
+
+                document.getElementById('game-area').appendChild(heart);
+                setTimeout(() => heart.remove(), 2000);
+            }, 800);
+
+            setTimeout(() => {
+                clearInterval(gameInterval);
+                alert("GAME OVER! Naima's Love Score: " + score);
+            }, 15000);
+        }
+
+        // 5. GLOBAL HEART RAIN
+        function startHeartRain() {
+            setInterval(() => {
+                const h = document.createElement('div');
+                h.innerHTML = "❤️";
+                h.className = "falling-heart text-2xl";
+                h.style.left = Math.random() * 100 + "vw";
+                h.style.animationDuration = Math.random() * 3 + 2 + "s";
+                document.body.appendChild(h);
+                setTimeout(() => h.remove(), 5000);
+            }, 200);
+        }
+    </script>
+</body>
+  </html>
+  
