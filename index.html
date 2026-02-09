@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AMISH ❤️ NAIMA | MEGA VERSION</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@900&family=Dancing+Script:wght@700&display=swap');
+
+        :root {
+            --bg-deep: #0f172a;
+            --primary-love: #ff0054;
+        }
+
+        /* BIG TEXT & SCALE */
+        body {
+            background: var(--bg-deep);
+            color: white;
+            font-family: 'Montserrat', sans-serif;
+            overflow-x: hidden;
+            font-size: 1.5rem; /* Base size increase */
+        }
+
+        .mega-text { font-size: clamp(4rem, 15vw, 12rem); line-height: 0.9; text-transform: uppercase; letter-spacing: -5px; }
+        .dancing { font-family: 'Dancing Script', cursive; text-transform: none; letter-spacing: 0; }
+        
+        /* Fixed Game & Music Elements */
+        .game-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 4px solid var(--primary-love);
+            padding: 4rem;
+            border-radius: 50px;
+            text-align: center;
+        }
+
+        /* Infinite Feature Generator Styles */
+        .feature-particle {
+            position: fixed;
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0.5;
+        }
+
+        .big-btn {
+            font-size: 2rem;
+            padding: 2rem 5rem;
+            border-radius: 100px;
+            background: var(--primary-love);
+            transition: all 0.3s ease;
+            box-shadow: 0 0 50px rgba(255, 0, 84, 0.4);
+        }
+
+        .big-btn:hover { transform: scale(1.1) rotate(2deg); background: #ff5c8a; }
+
+        /* Themed Gallery */
+        .massive-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+        }
+        
+        .gallery-item {
+            height: 600px;
+            border-radius: 40px;
+            overflow: hidden;
+            position: relative;
+            border: 10px solid white;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="fixed top-10 right-10 z-[100]">
+        <button onclick="toggleMegaMusic()" id="musicBtn" class="bg-white text-black p-8 rounded-full shadow-2xl hover:scale-110 active:scale-95 transition">
+            <span id="musicIcon" class="text-4xl">🎵 PLAY MUSIC</span>
+        </button>
+        <audio id="bgMusic" loop>
+            <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+        </audio>
+    </div>
+
+    <section class="min-h-screen flex flex-col items-center justify-center p-10 text-center">
+        <h1 class="mega-text animate__animated animate__pulse animate__infinite">Amish</h1>
+        <div class="text-9xl my-4 text-pink-500">❤️</div>
+        <h1 class="mega-text animate__animated animate__pulse animate__infinite">Naima</h1>
+        <p class="text-4xl mt-10 dancing text-pink-300">"You turn me inside out... for eternity."</p>
+    </section>
+
+    <div id="feature-space"></div>
+
+    <section class="py-20 px-10">
+        <h2 class="text-8xl font-black mb-20 text-center underline decoration-pink-500">OUR GALLERY</h2>
+        <div class="massive-grid">
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?auto=format&fit=crop&w=800" class="w-full h-full object-cover">
+                <div class="absolute bottom-0 left-0 p-10 bg-gradient-to-t from-black w-full">
+                    <p class="text-5xl font-bold">Infinity & Beyond</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1516738901171-8eb4fc13bd20?auto=format&fit=crop&w=800" class="w-full h-full object-cover">
+                <div class="absolute bottom-0 left-0 p-10 bg-gradient-to-t from-black w-full">
+                    <p class="text-5xl font-bold">My GPS is You</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="min-h-screen flex items-center justify-center p-10">
+        <div class="game-card w-full max-w-5xl">
+            <h2 class="text-7xl font-black mb-10">LOVE LOTTERY</h2>
+            <p class="text-3xl mb-10 text-gray-300">Click to calculate our infinite connection</p>
+            <div id="luckyNumber" class="mega-text text-pink-500 mb-10">0%</div>
+            <button onclick="startMegaGame()" class="big-btn">SPIN THE WHEEL</button>
+        </div>
+    </section>
+
+    <footer class="p-20 text-center border-t-8 border-pink-500">
+        <p class="text-6xl font-black mb-4">AMISH ❤️ NAIMA</p>
+        <p class="text-2xl tracking-[1rem] opacity-50">SIGNATURE WATERMARK: PROFESSIONAL SERIES v5000</p>
+    </footer>
+
+    <script>
+        // FIXED MUSIC LOGIC
+        const music = document.getElementById('bgMusic');
+        const mBtn = document.getElementById('musicBtn');
+        const mIcon = document.getElementById('musicIcon');
+
+        function toggleMegaMusic() {
+            if (music.paused) {
+                music.play().catch(e => alert("Please interact with the page first to play music!"));
+                mIcon.innerText = "⏸ PAUSE MUSIC";
+                mBtn.classList.add('bg-pink-500', 'text-white');
+            } else {
+                music.pause();
+                mIcon.innerText = "🎵 PLAY MUSIC";
+                mBtn.classList.remove('bg-pink-500', 'text-white');
+            }
+        }
+
+        // FIXED GAME LOGIC
+        function startMegaGame() {
+            const display = document.getElementById('luckyNumber');
+            let count = 0;
+            const interval = setInterval(() => {
+                count += Math.floor(Math.random() * 500);
+                display.innerText = count + "%";
+                if (count > 5000) {
+                    clearInterval(interval);
+                    display.innerText = "∞%";
+                    alert("RESULT: Amish loves Naima more than the universe!");
+                }
+            }, 30);
+        }
+
+        // 5000+ FEATURES SIMULATOR (Procedural Particles)
+        function spawnFeatures() {
+            const container = document.getElementById('feature-space');
+            const icons = ['❤️', '✨', '🌸', '🚀', '⭐', '💎', '🔥', '👑'];
+            
+            for(let i=0; i<150; i++) {
+                const el = document.createElement('div');
+                el.className = 'feature-particle';
+                el.innerText = icons[Math.floor(Math.random() * icons.length)];
+                el.style.left = Math.random() * 100 + 'vw';
+                el.style.top = Math.random() * 100 + 'vh';
+                el.style.fontSize = Math.random() * 100 + 20 + 'px';
+                container.appendChild(el);
+                
+                // Animate each "feature" uniquely
+                gsap.to(el, {
+                    y: (Math.random() - 0.5) * 500,
+                    x: (Math.random() - 0.5) * 500,
+                    rotation: 360,
+                    duration: Math.random() * 10 + 5,
+                    repeat: -1,
+                    yoyo: true,
+                    ease: "sine.inOut"
+                });
+            }
+        }
+        
+        spawnFeatures();
+    </script>
+</body>
+              </html>
+              
