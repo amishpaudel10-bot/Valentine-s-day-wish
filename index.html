@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AMISH ❤️ NAIMA | THE GIGA EDITION</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@900&family=Dancing+Script:wght@700&display=swap');
+
+        :root {
+            --bg-deep: #780116;
+            --love-red: #ff0054;
+        }
+
+        body {
+            background-color: var(--bg-deep);
+            color: white;
+            font-family: 'Montserrat', sans-serif;
+            overflow-x: hidden;
+            /* Big Text Global Scaling */
+            font-size: 1.5rem; 
+        }
+
+        .mega-text { font-size: clamp(4rem, 15vw, 12rem); line-height: 0.9; }
+        .ultra-text { font-size: clamp(2rem, 8vw, 6rem); }
+
+        /* Fix for Music & Games Visibility */
+        .active-section { display: block !important; }
+        
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 4px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50px;
+            padding: 60px;
+        }
+
+        /* 2-Photo Gallery Styles */
+        .duo-frame {
+            position: relative;
+            width: 100%;
+            max-width: 1200px;
+            height: 600px;
+            display: flex;
+            gap: 20px;
+        }
+        .duo-photo {
+            flex: 1;
+            border: 10px solid white;
+            border-radius: 30px;
+            background-size: cover;
+            background-position: center;
+            transition: transform 0.5s;
+        }
+        .duo-photo:hover { transform: scale(1.05) rotate(2deg); z-index: 10; }
+
+        /* Giga Heart Animation */
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            15% { transform: scale(1.3); }
+            30% { transform: scale(1.1); }
+            45% { transform: scale(1.4); }
+            100% { transform: scale(1); }
+        }
+        .heart-giga { animation: heartbeat 1.2s infinite; display: inline-block; color: var(--love-red); }
+    </style>
+</head>
+<body>
+
+    <section class="min-h-screen flex flex-col items-center justify-center p-10 text-center">
+        <h1 class="mega-text animate-pulse">AMISH <span class="heart-giga">❤️</span> NAIMA</h1>
+        <p class="ultra-text italic font-light mt-10">YOU TURN ME INSIDE OUT.</p>
+        
+        <div class="mt-20 glass-panel">
+            <h3 class="text-4xl mb-6">📢 VOICE NOTE FROM AMISH</h3>
+            <button onclick="playVoiceNote()" class="bg-white text-red-600 px-20 py-10 rounded-full text-5xl font-bold hover:bg-pink-100 transition shadow-2xl">
+                ▶ PLAY VOICE
+            </button>
+            <audio id="voiceNote" src="your-voice-note.mp3"></audio> 
+        </div>
+    </section>
+
+    <section class="py-40 px-10 flex flex-col items-center bg-white/5">
+        <h2 class="ultra-text mb-20">OUR FAVORITE TWO</h2>
+        <div class="duo-frame">
+            <div class="duo-photo" style="background-image: url('https://placehold.co/600x800/ff0054/white?text=AMISH+PHOTO');"></div>
+            <div class="duo-photo" style="background-image: url('https://placehold.co/600x800/7209b7/white?text=NAIMA+PHOTO');"></div>
+        </div>
+    </section>
+
+    <section class="py-40 px-10">
+        <div class="max-w-6xl mx-auto glass-panel text-center">
+            <h2 class="ultra-text mb-10">THE LOVE ENGINE</h2>
+            
+            <div class="mb-20">
+                <p class="text-4xl mb-6">🎵 BACKGROUND SYMPHONY</p>
+                <div class="flex justify-center gap-10">
+                    <button onclick="toggleMusic(true)" class="bg-green-500 p-10 rounded-full text-4xl">PLAY MUSIC</button>
+                    <button onclick="toggleMusic(false)" class="bg-red-500 p-10 rounded-full text-4xl">STOP</button>
+                </div>
+                <audio id="bgMusic" loop>
+                    <source src="https://www.bensound.com/bensound-music/bensound-love.mp3" type="audio/mpeg">
+                </audio>
+            </div>
+
+            <div id="game-zone">
+                <p class="text-4xl mb-4">COMPATIBILITY SCORE:</p>
+                <div id="score" class="mega-text text-yellow-400">0</div>
+                <button onclick="addLove()" class="mt-10 bg-pink-600 px-20 py-10 rounded-3xl text-5xl font-black hover:scale-110 active:scale-95 transition">
+                    TAP FOR LOVE!
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <footer class="p-40 text-center border-t-8 border-white/10">
+        <div class="mega-text opacity-20">A+N</div>
+        <p class="text-4xl mt-10">I ∞ YOU. NO ENDING. NO LIMITS.</p>
+    </footer>
+
+    <script>
+        // 1. Music Control Logic
+        const music = document.getElementById('bgMusic');
+        function toggleMusic(play) {
+            if(play) {
+                music.play().catch(() => alert("Click anywhere on the screen first to enable audio!"));
+            } else {
+                music.pause();
+            }
+        }
+
+        // 2. Giga Game Logic
+        let score = 0;
+        function addLove() {
+            score += 1000;
+            document.getElementById('score').innerText = score.toLocaleString();
+            if(score === 10000) {
+                alert("SYSTEM ERROR: TOO MUCH LOVE DETECTED!");
+            }
+        }
+
+        // 3. Voice Note Logic
+        function playVoiceNote() {
+            const voice = document.getElementById('voiceNote');
+            voice.play().catch(() => alert("Add your 'voice-note.mp3' file to the folder to hear this!"));
+        }
+
+        // 4. Cursor Scaling
+        document.body.style.cursor = "crosshair";
+    </script>
+</body>
+  </html>
+  
