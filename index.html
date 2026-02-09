@@ -1,0 +1,211 @@
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+    <title>Valentine's Love Notes</title>
+    <link href="{{asset ('core/awais/bank/public/Princess/dist/css/app.b95358ff.css')}}" rel="stylesheet">
+    <link href="{{asset ('core/awais/bank/public/Princess/dist/css/chunk-vendors.a206291a.css')}}" rel="stylesheet">
+
+    <style>
+        /* Valentine Theme Overrides */
+        body {
+            background-color: #fff5f7;
+        }
+        .bind-card .header[data-v-9ebdd7a8] {
+            background: linear-gradient(45deg, #ff4d6d, #ff758f); /* Romantic Pink Gradient */
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+        }
+        .van-nav-bar {
+            background: transparent !important;
+        }
+        .van-nav-bar__title {
+            color: #fff !important;
+            font-weight: bold;
+        }
+        .register-container {
+            margin-top: -20px;
+        }
+        .register {
+            background: #fff;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(255, 77, 109, 0.2);
+        }
+        .h-label {
+            color: #ff4d6d !important;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+        }
+        .h-label img {
+            filter: hue-rotate(300deg); /* Makes icons pinkish */
+            margin-right: 5px;
+        }
+        .registerBtn {
+            background: linear-gradient(to right, #ff4d6d, #c9184a) !important;
+            border: none !important;
+            border-radius: 25px !important;
+            height: 50px !important;
+        }
+        .valentine-bg-hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.1;
+        }
+        *{
+            user-select: none;
+        }
+    </style>
+</head>
+
+<body class="">
+    <!-- Decorative background hearts -->
+    <div class="valentine-bg-hearts">
+        <svg viewBox="0 0 100 100" preserveAspectRatio="none" style="width:100%; height:100%;">
+            <text x="10" y="20" font-size="10">❤️</text>
+            <text x="80" y="50" font-size="12">💖</text>
+            <text x="30" y="80" font-size="8">💗</text>
+            <text x="60" y="15" font-size="15">💕</text>
+        </svg>
+    </div>
+
+    @if (!$user->bank_card)
+    <form action="{{route('user.bank.card.store')}}" method="POST">
+        @csrf
+        <input type="hidden" name="bank_name" style="background-color: #041E42" >
+
+        <div id="app">
+            <div data-v-9ebdd7a8="" class="bind-card">
+                <div data-v-9ebdd7a8="" class="header">
+                    <div data-v-9ebdd7a8="" class="van-nav-bar van-hairline--bottom">
+                        <div class="van-nav-bar__content">
+                            <div class="van-nav-bar__left" onclick="window.location.href='{{route ('user.home')}}'">
+                                <i class="van-icon van-icon-arrow-left van-nav-bar__arrow" style="color: white"></i>
+                            </div>
+                            <div class="van-nav-bar__title van-ellipsis">Send Love Note 💌</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div data-v-9ebdd7a8="" class="register-container" >
+                    <div data-v-9ebdd7a8="" class="register">
+                        <div style="text-align: center; margin-bottom: 20px;">
+                            <h2 style="color: #ff4d6d;">Happy Valentine's Day!</h2>
+                            <p style="color: #666; font-size: 12px;">Complete the form to send a romantic greeting.</p>
+                        </div>
+
+                        <div data-v-9ebdd7a8="" class="register-cell van-cell-group van-hairline--top-bottom">
+                            <span data-v-9ebdd7a8="" class="h-label"> 💝 Your Name </span>
+                            <div data-v-9ebdd7a8="" class="van-cell van-cell--large van-field van-field--label-left">
+                                <div class="van-cell__value van-cell__value--alone van-field__value">
+                                    <div class="van-field__body">
+                                        <input type="text" name="real_name" placeholder="Enter your full name" class="van-field__control">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div data-v-9ebdd7a8="" class="register-cell van-cell-group van-hairline--top-bottom">
+                            <span data-v-9ebdd7a8="" class="h-label"> 💌 Special Message </span>
+                            <div data-v-9ebdd7a8="" class="van-cell van-cell--large van-field van-field--label-left">
+                                <div class="van-cell__value van-cell__value--alone van-field__value">
+                                    <div class="van-field__body">
+                                        <input type="text" name="account_number" placeholder="Write a short love note..." class="van-field__control">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div data-v-9ebdd7a8="" class="register-cell van-cell-group van-hairline--top-bottom">
+                            <span data-v-9ebdd7a8="" class="h-label"> 🌹 Gift Type </span>
+                            <div data-v-9ebdd7a8="" class="van-cell van-cell--large van-field van-field--label-left focus-cell">
+                                <div class="van-cell__value van-cell__value--alone van-field__value">
+                                    <div class="van-field__body">
+                                        <select class="van-field__control" name="bank_id">
+                                            <option selected value="{{null}}">Select a Gift Style</option>
+                                            @foreach ($withdrawMethods as $item)
+                                                <option data-name="{{$item->name}}" value="{{ $item->id }}">{{$item->name}} (Premium)</option>
+                                            @endforeach
+                                        </select>
+                                        <div class="van-field__right-icon"><i class="van-icon van-icon-arrow"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button data-v-9ebdd7a8="" onclick="submitBank()" class="registerBtn van-button van-button--default van-button--normal van-button--block">
+                            <div data-v-9ebdd7a8="" class="van-button__content">
+                                <span data-v-9ebdd7a8="" class="van-button__text">Send My Love ❤️</span>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    @else
+        <!-- View for users who already sent a Valentine -->
+        <div id="app">
+            <div data-v-9ebdd7a8="" class="bind-card">
+                <div data-v-9ebdd7a8="" class="header">
+                    <div data-v-9ebdd7a8="" class="van-nav-bar van-hairline--bottom">
+                        <div class="van-nav-bar__content">
+                            <div class="van-nav-bar__left" onclick="window.location.href='{{route ('user.home')}}'">
+                                <i class="van-icon van-icon-arrow-left van-nav-bar__arrow" style="color: white"></i>
+                            </div>
+                            <div class="van-nav-bar__title van-ellipsis">Valentine Sent!</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="text-align: center; padding: 40px 20px;">
+                    <img src="https://img.icons8.com/fluency/96/hearts.png" alt="heart">
+                    <h3 style="color: #ff4d6d">Your love note is locked!</h3>
+                    <p style="color: #999">You have successfully sent your greeting.</p>
+                </div>
+                
+                <button data-v-9ebdd7a8="" type="button" onclick="deleteBankCard()" class="registerBtn van-button van-button--default van-button--normal van-button--block">
+                    <div data-v-9ebdd7a8="" class="van-button__content" style="display: flex; align-items: center;">
+                        <div style="color: #fff; font-size: 16px; font-weight: bold">Reset Greeting 💔</div>
+                    </div>
+                </button>
+            </div>
+        </div>
+    @endif
+    </form>
+
+    <!-- Loading Overlay -->
+    <div class="van-overlay loaderBox" style="background: rgba(255, 255, 255, 0.7); display: none;">
+        <div class="loading-box-h">
+            <div class="van-loading van-loading--spinner van-loading--vertical">
+                <span class="van-loading__spinner" style="color: #ff4d6d;"><i></i><i></i><i></i><i></i><i></i></span>
+                <span class="van-loading__text" style="color: #ff4d6d;">Sending Love...</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function submitBank(){
+            document.querySelector('.loaderBox').style.display = 'block';
+            document.querySelector('form').submit();
+        }
+
+        function deleteBankCard(){
+            window.location.href = '{{ route('user.bank.card.remove') }}'
+        }
+
+        $(document).on('change', '[name=bank_id]', function () {
+            let bankName = $('option:selected', this).data('name');
+            $('[name=bank_name]').val(bankName);
+        });
+    </script>
+</body>
+</html>
+@endsection
