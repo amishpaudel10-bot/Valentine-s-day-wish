@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Permanently Yours | Naima & Amish</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #ff4d6d;
+            /* Ultra-Deep Keyboard Style Blur (70px) */
+            --glass-bg: rgba(255, 255, 255, 0.04); 
+            --glass-blur: blur(70px) saturate(180%);
+            --glass-border: rgba(255, 255, 255, 0.15);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+
+        body {
+            background: url('https://i.ibb.co/6RB14b74/IMG-20260118-WA0044.jpg') no-repeat center center fixed;
+            background-size: cover;
+            transition: background 1.2s ease-in-out;
+            color: white;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Video Background Container for Forgive Section */
+        #sorry-video-bg {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -2; display: none; overflow: hidden;
+        }
+        #sorry-video-bg iframe {
+            position: absolute; top: 50%; left: 50%;
+            width: 100vw; height: 100vh;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+        }
+
+        .master-dim {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.4); z-index: -1;
+        }
+
+        /* --- NAVIGATION --- */
+        #nav-header { position: fixed; top: 20px; right: 20px; z-index: 2000; }
+        .dots-btn {
+            background: rgba(0,0,0,0.4); backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border); color: white; font-size: 28px;
+            width: 55px; height: 55px; border-radius: 50%; cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .dropdown {
+            position: absolute; top: 65px; right: 0;
+            background: rgba(255, 255, 255, 0.98); border-radius: 20px;
+            display: none; flex-direction: column; width: 250px;
+            box-shadow: 0 15px 45px rgba(0,0,0,0.6); overflow: hidden;
+        }
+        .dropdown a {
+            padding: 15px 25px; text-decoration: none; color: #1a1a1a;
+            font-size: 14px; border-bottom: 1px solid #f0f0f0; transition: 0.3s; font-weight: 600;
+        }
+        .dropdown a:hover { background: #fff0f3; color: var(--primary); padding-left: 30px; }
+
+        /* --- SCREENS --- */
+        .screen { 
+            min-height: 100vh; display: none; 
+            flex-direction: column; align-items: center; justify-content: center; 
+            padding: 80px 20px 40px; text-align: center; 
+        }
+        .active { display: flex; animation: smoothIn 0.8s ease-out; }
+        @keyframes smoothIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--glass-border);
+            padding: 35px; border-radius: 40px;
+            max-width: 850px; width: 100%;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.4);
+        }
+
+        /* --- ELEMENTS --- */
+        .btn {
+            background: var(--primary); color: white; border: none;
+            padding: 16px 36px; border-radius: 50px; font-weight: 600;
+            cursor: pointer; margin: 10px; transition: 0.4s;
+            text-transform: uppercase; letter-spacing: 1px;
+        }
+        .btn:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(255, 77, 109, 0.4); }
+
+        .pin-input {
+            background: rgba(255,255,255,0.05); border: 2px solid white; color: white;
+            font-size: 36px; text-align: center; width: 200px; 
+            border-radius: 15px; letter-spacing: 10px; margin: 25px 0; outline: none;
+        }
+
+        /* --- BADDIE'S GALLERY --- */
+        .baddie-gallery {
+            display: grid; grid-template-columns: repeat(3, 1fr);
+            gap: 12px; width: 100%; max-height: 400px; overflow-y: auto; padding: 10px;
+        }
+        .baddie-gallery img { width: 100%; height: 130px; object-fit: cover; border-radius: 18px; border: 3px solid white; }
+
+        /* --- VIDEO SCROLL --- */
+        .scroll-container { width: 100%; max-height: 480px; overflow-y: auto; padding-right: 5px; }
+        .video-wrapper {
+            position: relative; padding-bottom: 56.25%; height: 0; 
+            overflow: hidden; border-radius: 20px; border: 4px solid white;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.4); width: 100%; margin-bottom: 20px;
+        }
+        .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+
+        /* --- PHOTO FRAMES --- */
+        .frame-grid { display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; margin-top: 25px; }
+        .photo-frame { background: white; padding: 10px 10px 35px 10px; box-shadow: 0 10px 25px rgba(0,0,0,0.3); transition: 0.3s; width: 140px; }
+        .photo-frame img { width: 100%; height: 140px; object-fit: cover; border: 1px solid #eee; }
+
+        /* --- PIANO --- */
+        .piano-ui { display: flex; gap: 8px; justify-content: center; margin: 25px 0; }
+        .key { width: 45px; height: 180px; background: white; border-radius: 0 0 12px 12px; cursor: pointer; border: 1px solid #ccc; }
+        .key:active { background: #ffccd5; transform: scaleY(0.96); }
+
+        /* --- CONTACT --- */
+        .wa-card { display: block; padding: 22px; border-radius: 25px; text-decoration: none; color: white; font-weight: 600; margin: 15px 0; font-size: 1.1rem; }
+        .wa-naima { background: linear-gradient(135deg, #25D366, #128C7E); }
+        .wa-amish { background: linear-gradient(135deg, #34B7F1, #075E54); }
+
+        #fire-canvas { position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9999; }
+
+        .kiss-particle {
+            position: fixed; pointer-events: none; font-size: 35px;
+            animation: floatKiss 2.5s ease-out forwards; z-index: 10000;
+        }
+        @keyframes floatKiss {
+            0% { transform: translateY(0) scale(1); opacity: 1; }
+            100% { transform: translateY(-300px) scale(1.5) rotate(20deg); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="master-dim"></div>
+    <div id="sorry-video-bg">
+        <iframe src="https://streamable.com/e/310vc7?autoplay=1&muted=1&loop=1&controls=0" frameborder="0" allow="autoplay; fullscreen"></iframe>
+    </div>
+    <canvas id="fire-canvas"></canvas>
+
+    <!-- Navigation -->
+    <div id="nav-header" style="display:none;">
+        <button class="dots-btn" onclick="toggleMenu()">⋮</button>
+        <div class="dropdown" id="menu">
+            <a href="#" onclick="showScreen('dash')">🏠 Dashboard</a>
+            <a href="#" onclick="showScreen('childhood')">👶 Your Childhood</a>
+            <a href="#" onclick="showScreen('gallery')">🔥 Baddie's Gallery</a>
+            <a href="#" onclick="showScreen('videos')">🎬 Our Videos</a>
+            <a href="#" onclick="showScreen('kisses')">💋 Your Kisses</a>
+            <a href="#" onclick="showScreen('sorry')">🙏 Forgive Amish</a>
+            <a href="#" onclick="showScreen('diary')">📔 Private Diary</a>
+            <a href="#" onclick="showScreen('piano')">🎹 Love Piano</a>
+            <a href="#" onclick="showScreen('things')">✨ Things Done For You</a>
+            <a href="#" onclick="showScreen('contact')">💬 Contact Us</a>
+            <a href="#" onclick="location.reload()" style="color:red">🚪 Logout</a>
+        </div>
+    </div>
+
+    <!-- Login -->
+    <section id="login" class="screen active">
+        <div class="glass-card">
+            <h1 style="font-family: 'Dancing Script'; font-size: 3.5rem;">Hello Naima 🥰</h1>
+            <p>Enter our private Pin (0915)</p>
+            <input type="password" id="pinInput" class="pin-input" maxlength="4" placeholder="****">
+            <br>
+            <button class="btn" onclick="checkLogin()">Access Our World</button>
+        </div>
+    </section>
+
+    <!-- Dashboard -->
+    <section id="dash" class="screen">
+        <div class="glass-card">
+            <h1 style="font-family: 'Dancing Script'; font-size: 3rem;">Premium Dashboard</h1>
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 30px 0;">
+                <div style="background:rgba(255,255,255,0.05); padding:20px; border-radius:20px; border:1px solid var(--glass-border);">❤️ Love: Infinite</div>
+                <div style="background:rgba(255,255,255,0.05); padding:20px; border-radius:20px; border:1px solid var(--glass-border);">💍 Status: Soulmates</div>
+                <div style="background:rgba(255,255,255,0.05); padding:20px; border-radius:20px; border:1px solid var(--glass-border);">👑 Queen: Naima</div>
+                <div style="background:rgba(255,255,255,0.05); padding:20px; border-radius:20px; border:1px solid var(--glass-border);">👨‍💻 King: Amish</div>
+            </div>
+            <button class="btn" onclick="showScreen('childhood')">Begin Journey ➔</button>
+        </div>
+    </section>
+
+    <!-- Childhood -->
+    <section id="childhood" class="screen">
+        <div class="glass-card">
+            <h2 style="font-family: 'Dancing Script'; font-size: 2.5rem;">Your Childhood 👶</h2>
+            <p style="margin: 15px 0; font-style: italic; font-size: 1.1rem;">"I have kept these photos safe so that one day, we can share these memories with our children."</p>
+            <div class="frame-grid">
+                <div class="photo-frame"><img src="https://i.ibb.co/DDjMJVpx/IMG-20251116-172218-243.jpg"></div>
+                <div class="photo-frame"><img src="https://i.ibb.co/vyFR1HR/IMG-20251116-172203-564.jpg"></div>
+                <div class="photo-frame"><img src="https://i.ibb.co/1JvYLgds/IMG-20251116-172200-748.jpg"></div>
+                <div class="photo-frame"><img src="https://i.ibb.co/hJLDQ8y7/IMG-20251001-094630-705.jpg"></div>
+                <div class="photo-frame"><img src="https://i.ibb.co/Z6vRQ4Tm/IMG-20251024-151231-168.jpg"></div>
+            </div>
+            <button class="btn" onclick="showScreen('gallery')">Next ➔</button>
+        </div>
+    </section>
+
+    <!-- Baddie's Gallery -->
+    <section id="gallery" class="screen">
+        <div class="glass-card">
+            <h2 style="font-family: 'Dancing Script'; margin-bottom: 20px;">Baddie's Gallery 🥰</h2>
+            <div class="baddie-gallery">
+                <img src="https://i.ibb.co/zhV4fN1P/IMG-20251223-WA0045.jpg">
+                <img src="https://i.ibb.co/p6mBHwzG/IMG-20251001-092150-074.jpg">
+                <img src="https://i.ibb.co/xS5kKXY2/IMG-20251001-093531-456.jpg">
+                <img src="https://i.ibb.co/MynMp5Pd/IMG-20260202-WA0042.jpg">
+                <img src="https://i.ibb.co/vxvZdK44/IMG-20260121-WA0010.jpg">
+                <img src="https://i.ibb.co/YF3nGQgC/IMG-20251230-WA0040.jpg">
+                <img src="https://i.ibb.co/zhV4fN1P/IMG-20251223-WA0045.jpg">
+                <img src="https://i.ibb.co/20Yp3Vb0/IMG-20251001-093419-064.jpg">
+                <img src="https://i.ibb.co/9kyjnWGY/IMG-20251001-093605-112.jpg">
+                <img src="https://i.ibb.co/FkzF1SY5/IMG-20251001-094023-295.jpg">
+                <img src="https://i.ibb.co/ZzyRFxWQ/IMG-20251001-094422-485.jpg">
+                <img src="https://i.ibb.co/0VYs3ZJk/IMG-20251001-094615-637.jpg">
+                <img src="https://i.ibb.co/BKcnhQ29/IMG-20251001-094253-250.jpg">
+                <img src="https://i.ibb.co/sp8gJCgz/IMG-20251011-100954-897.jpg">
+                <img src="https://i.ibb.co/Y4Zw5CcR/Screenshot-20251022-232552.jpg">
+                <img src="https://i.ibb.co/nq437gBF/IMG-20251107-140124-960.jpg">
+                <img src="https://i.ibb.co/GfDJpB02/Screenshot-20251209-055627.jpg">
+                <img src="https://i.ibb.co/jvdRr90k/Screenshot-20251209-055619.jpg">
+                <img src="https://i.ibb.co/fBKz3yQ/IMG-20251130-WA0064.jpg">
+                <img src="https://i.ibb.co/RTQS3BRn/IMG-20251024-150827-756.jpg">
+            </div>
+            <button class="btn" onclick="showScreen('videos')">Next ➔</button>
+        </div>
+    </section>
+
+    <!-- Videos -->
+    <section id="videos" class="screen">
+        <div class="glass-card">
+            <h2 style="font-family: 'Dancing Script'; font-size: 2.8rem; margin-bottom: 25px;">Our Videos 🎬</h2>
+            <div class="scroll-container">
+                <div class="video-wrapper"><iframe src="https://streamable.com/e/r2zpte" frameborder="0" allowfullscreen></iframe></div>
+                <div class="video-wrapper"><iframe src="https://streamable.com/e/6osmxx" frameborder="0" allowfullscreen></iframe></div>
+            </div>
+            <button class="btn" onclick="showScreen('kisses')">Next ➔</button>
+        </div>
+    </section>
+
+    <!-- Kisses -->
+    <section id="kisses" class="screen">
+        <div class="glass-card">
+            <h2 style="font-family: 'Dancing Script'; font-size: 3rem; margin-bottom: 20px;">Your Kisses 💋</h2>
+            <div class="scroll-container">
+                <div class="video-wrapper"><iframe src="https://streamable.com/e/x14loo" frameborder="0" allowfullscreen></iframe></div>
+                <div class="video-wrapper"><iframe src="https://streamable.com/e/ogucvo" frameborder="0" allowfullscreen></iframe></div>
+                <div class="video-wrapper"><iframe src="https://streamable.com/e/lyc60o" frameborder="0" allowfullscreen></iframe></div>
+                <div class="video-wrapper"><iframe src="https://streamable.com/e/8akd5r" frameborder="0" allowfullscreen></iframe></div>
+            </div>
+            <button class="btn" onclick="sendKiss()">Send Virtual Kiss! 💝</button>
+            <button class="btn" style="background:#555" onclick="showScreen('sorry')">Next ➔</button>
+        </div>
+    </section>
+
+    <!-- Forgive Amish (VIDEO BACKGROUND) -->
+    <section id="sorry" class="screen">
+        <div class="glass-card">
+            <h1 style="font-family: 'Dancing Script'; font-size: 3rem;">I am Sincere, Naima</h1>
+            <div style="background: rgba(0,0,0,0.25); padding: 25px; border-radius: 25px; text-align: left; margin: 20px 0; line-height: 1.7;">
+                <p>Looking back at our journey, I realize I’ve made mistakes that might have hurt you. I am deeply and truly sorry for every moment I wasn't the man you deserved. Please forgive your Amish and let’s start a new chapter filled only with love. 🥺❤️</p>
+            </div>
+            <div id="forgiveBox">
+                <button class="btn" style="background:#2ecc71" onclick="forgive(true)">Yes, I Forgive You</button>
+                <button class="btn" style="background:#e74c3c" onclick="forgive(false)">No</button>
+            </div>
+            <div id="sad" style="display:none; margin-top:15px;">😔 Amish’s heart is breaking... please think again?</div>
+            <button id="sNext" class="btn" style="display:none" onclick="showScreen('diary')">Continue ➔</button>
+        </div>
+    </section>
+
+    <!-- Diary (10 Quotes) -->
+    <section id="diary" class="screen">
+        <div class="glass-card">
+            <h2 style="font-family: 'Dancing Script';">Private Diary 📔</h2>
+            <div style="text-align: left; height: 350px; overflow-y: auto; padding: 20px; background: rgba(0,0,0,0.3); border-radius: 25px; margin-top: 20px;">
+                <p style="margin-bottom:10px; border-bottom:1px solid rgba(255,255,255,0.1); padding-bottom:5px;">1. Meeting you was fate, becoming your friend was a choice.</p>
+                <p style="margin-bottom:10px; border-bottom:1px solid rgba(255,255,255,0.1); padding-bottom:5px;">2. Naima, you are my home and my adventure all at once.</p>
+                <p style="margin-bottom:10px; border-bottom:1px solid rgba(255,255,255,0.1); padding-bottom:5px;">3. I promise to hold your hand through every struggle.</p>
+                <p style="margin-bottom:10px; border-bottom:1px solid rgba(255,255,255,0.1); padding-bottom:5px;">4. I am sorry for every mistake; I only want you happy.</p>
+                <p style="margin-bottom:10px; border-bottom:1px solid rgba(255,255,255,0.1); padding-bottom:5px;">5. Your smile is Amish's favorite view in the world.</p>
+                <p style="margin-bottom:10px; border-bottom:1px solid rgba(255,255,255,0.1); padding-bottom:5px;">6. No matter what, I will always choose you.</p>
+                <p style="margin-bottom:10px; border-bottom:1px solid rgba(255,255,255,0.1); padding-bottom:5px;">7. Thank you for staying by my side.</p>
+                <p style="margin-bottom:10px; border-bottom:1px solid rgba(255,255,255,0.1); padding-bottom:5px;">8. You are the Queen of my soul's kingdom.</p>
+                <p style="margin-bottom:10px; border-bottom:1px solid rgba(255,255,255,0.1); padding-bottom:5px;">9. I will love you until the last star fades.</p>
+                <p style="margin-bottom:10px; border-bottom:1px solid rgba(255,255,255,0.1); padding-bottom:5px;">10. Happy Valentine's Day soulmate! ❤️</p>
+            </div>
+            <button class="btn" onclick="showScreen('piano')">Play Piano ➔</button>
+        </div>
+    </section>
+
+    <!-- Piano -->
+    <section id="piano" class="screen">
+        <div class="glass-card">
+            <h2 style="font-family: 'Dancing Script';">Love Piano 🎹</h2>
+            <div class="piano-ui">
+                <div class="key" onclick="note(261.63)"></div>
+                <div class="key" onclick="note(293.66)"></div>
+                <div class="key" onclick="note(329.63)"></div>
+                <div class="key" onclick="note(349.23)"></div>
+                <div class="key" onclick="note(392.00)"></div>
+                <div class="key" onclick="note(440.00)"></div>
+                <div class="key" onclick="note(493.88)"></div>
+            </div>
+            <button class="btn" onclick="showScreen('things')">Final Surprise ➔</button>
+        </div>
+    </section>
+
+    <!-- Things Done For You -->
+    <section id="things" class="screen">
+        <div class="glass-card">
+            <h2 style="font-family: 'Dancing Script'; font-size: 2.2rem;">Things Done For You ✨</h2>
+            <img src="https://i.ibb.co/gMHb9dsL/IMG-20260131-204549.jpg" style="width: 250px; border-radius: 20px; border: 4px solid white; margin-bottom: 20px;" alt="Tattoo">
+            <div style="text-align: left; background: rgba(0,0,0,0.3); padding: 25px; border-radius: 25px; line-height: 1.6;">
+                <p><b>My First Tattoo:</b> To show that you are permanently part of my soul, I inked your name, <b>"Naima"</b>, on my skin as my very first tattoo. It's a promise that lasts forever. ❤️</p>
+            </div>
+            <button class="btn" onclick="showScreen('contact')">Reach Out ➔</button>
+        </div>
+    </section>
+
+    <!-- Contact Us -->
+    <section id="contact" class="screen">
+        <div class="glass-card">
+            <h1 style="margin-bottom: 30px;">Contact Us 💬</h1>
+            <a href="https://wa.me/918974900636?text=I%20love%20you%20Amish!%20❤️" target="_blank" class="wa-card wa-naima">Message Naima (+91 89749 00636)</a>
+            <a href="https://wa.me/9779767757067?text=Amish,%20I%20forgive%20you!%20💖" target="_blank" class="wa-card wa-amish">Message Amish (+977 97677 57067)</a>
+            <p style="margin-top: 40px; font-size: 13px; opacity: 0.7;">FOREVER YOURS, AMISH ❤️</p>
+        </div>
+    </section>
+
+    <script>
+        const PIN = "0915";
+        const imgD = "https://i.ibb.co/6RB14b74/IMG-20260118-WA0044.jpg";
+        const imgG = "https://i.ibb.co/gLDn0Lzf/IMG-20260208-WA0026.jpg";
+
+        function checkLogin() {
+            if(document.getElementById('pinInput').value === PIN) {
+                document.getElementById('nav-header').style.display = 'block';
+                showScreen('dash');
+            } else { alert("Incorrect Pin!"); }
+        }
+
+        function showScreen(id) {
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+            document.getElementById('menu').style.display = 'none';
+            window.scrollTo(0,0);
+            
+            const videoBg = document.getElementById('sorry-video-bg');
+            if(id === 'sorry') {
+                videoBg.style.display = 'block';
+                document.body.style.backgroundImage = 'none';
+            } else {
+                videoBg.style.display = 'none';
+                if(id === 'gallery' || id === 'childhood' || id === 'videos' || id === 'kisses') {
+                    document.body.style.backgroundImage = `url('${imgG}')`;
+                } else {
+                    document.body.style.backgroundImage = `url('${imgD}')`;
+                }
+            }
+        }
+
+        function toggleMenu() {
+            const m = document.getElementById('menu');
+            m.style.display = (m.style.display === 'flex') ? 'none' : 'flex';
+        }
+
+        function sendKiss() {
+            for(let i=0; i<15; i++) {
+                const kiss = document.createElement('div');
+                kiss.className = 'kiss-particle';
+                kiss.innerText = '💋';
+                kiss.style.left = Math.random() * 100 + 'vw';
+                kiss.style.bottom = '0px';
+                kiss.style.animationDelay = Math.random() * 0.5 + 's';
+                document.body.appendChild(kiss);
+                setTimeout(() => kiss.remove(), 2500);
+            }
+        }
+
+        function forgive(y) {
+            if(y) {
+                document.getElementById('forgiveBox').style.display = 'none';
+                document.getElementById('sad').style.display = 'none';
+                document.getElementById('sNext').style.display = 'inline-block';
+                fire();
+            } else { document.getElementById('sad').style.display = 'block'; }
+        }
+
+        const actx = new (window.AudioContext || window.webkitAudioContext)();
+        function note(f) {
+            const o = actx.createOscillator();
+            const g = actx.createGain();
+            o.frequency.value = f;
+            g.gain.exponentialRampToValueAtTime(0.0001, actx.currentTime + 1);
+            o.connect(g); g.connect(actx.destination);
+            o.start(); o.stop(actx.currentTime + 1);
+        }
+
+        function fire() {
+            const f = document.getElementById('fire-canvas');
+            const fx = f.getContext('2d');
+            f.width = window.innerWidth; f.height = window.innerHeight;
+            let ps = [];
+            for(let i=0; i<150; i++) ps.push({x:Math.random()*f.width, y:Math.random()*f.height, vx:Math.random()*6-3, vy:Math.random()*6-3, c:`hsl(${Math.random()*360},100%,50%)`});
+            function loop() {
+                fx.clearRect(0,0,f.width, f.height);
+                ps.forEach(p => { p.x += p.vx; p.y += p.vy; fx.fillStyle = p.c; fx.beginPath(); fx.arc(p.x, p.y, 3, 0, Math.PI*2); fx.fill(); });
+                requestAnimationFrame(loop);
+            }
+            loop();
+        }
+    </script>
+</body>
+</html>
